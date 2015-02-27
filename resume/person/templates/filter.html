@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+        {% block filter %}
+
+            <div class="col-md-4">
+                <h3>Категории</h3>
+                    <form action="/saveblank/get/{{ username }}/" method="post">
+                        {% csrf_token %}
+                            {% if username %}
+                            <form action="/articles/addcomment/{{ article.id }}/" method="post">
+                                {% csrf_token %}
+                                {{ form }}
+                                <input type="submit" class="button" value="Добавить">
+                            </form>
+                             {% endif %}
+                    </form>
+
+            </div>
+
+        {% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block login %}
+        <div class="col-md-4 col-md-offset-4">
+             <h2 class="form-signin-heading">Форма регистрации:</h2>
+            <form id="registerForm" action="/auth/register/" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input class="btn btn-lg btn-success btn-block" type="submit" value="Регистрация">
+
+            </form>
+        </div>
+{% endblock %}
+

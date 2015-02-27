@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+        {% block resume %}
+
+            <div class="col-md-4 col-md-offset-4">
+
+                    <h3 class="text-primary">{{ person.person_last_name }} {{ person.person_name }} {{ person.person_father_name }}</h3>
+                    <h4><span class="text-muted">Желаемая позиция:</span> <b><mark>{{ person.person_position }}</mark></b></h4>
+                    <h5><span class="text-muted">Личные навыки:</span></h5>
+                    <p class="text-info">{{ person.person_skills }}</p>
+                    <hr>
+                    {% if education %}
+                        <h5 class="text-muted">Образование:</h5>
+
+                      <dl class="dl-horizontal">
+                          {% for educ in education %}
+                        <dt >{{ educ.education_name }}</dt>
+                        <dd>- {{ educ.education_speciality }}</dd>
+                          {% endfor %}
+                      </dl>
+                        <hr>
+                    {% endif %}
+
+                {% if previous %}
+                        <h5 class="text-muted">Прежние места(место) работы/должность:</h5>
+                    <dl class="dl-horizontal">
+                    {% for prev in previous %}
+                        <dt>{{ prev.previous_place }}:</dt> <dd>{{ prev.previous_position }}</dd>
+                    {% endfor %}
+                    </dl>
+                {% endif %}
+                <h5><span class="text-muted">Личные данные:</span></h5>
+                    <dl class="dl-horizontal">
+                    <dt>Город:</dt> <dd>{{ person.person_city }}</dd>
+                    <dt>Область:</dt> <dd>{{ person.person_region }}</dd>
+                    <dt>Дата рождения:</dt> <dd>{{ person.person_birthday }}</dd>
+                    <dt>тел.:</dt> <dd>{{ person.person_phone_number}}</dd>
+                    <dt>email:</dt> <dd>{{ person.person_email }}</dd>
+                   </dl>
+
+                    <h6 class="text-info">Количество просмотров: <code>{{ person.person_views }}</code></h6>
+                    <h6 class="text-info">Дата публикации: <code>{{ person.person_timestamp }}</code></h6>
+            </div>
+
+        {% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+
+        {% block resume %}
+
+
+             <div class="col-md-3">
+                <h4 style="text-align:center;" class="text-info">Категории поиска:</h4>
+                    <form action="/query/get/" method="get">
+
+                            <select class="form-control" name="person_branch" id="person_branch">
+                                <option value="0" class="text-muted">Выберите направление</option>
+                                {% for branch in branches %}
+                                    <option>{{ branch }}</option>
+                                {% endfor %}
+                            </select>
+
+
+                            <select class="form-control" name="person_profession" id="person_profession">
+                                <option value="0" class="text-muted">Выберите свою специальность</option>
+                                    {% for profession in professions %}
+                                    <option>{{ profession }}</option>
+                                    {% endfor %}
+                            </select>
+
+
+                           <select class="form-control" name="person_region" id="person_region">
+                                 <option value="0" class="text-muted">Выберите свою область</option>
+                                    {% for region in regions %}
+                                    <option>{{ region }}</option>
+                                    {% endfor %}
+                            </select>
+
+                            <input type="submit" class="btn btn-md btn-primary btn-block" value="Выбрать">
+                     </form>
+
+            </div>
+
+
+            <div class="col-md-4 col-md-offset-1">
+                {% for resume in resumes %}
+
+
+                    <h4><a href="/resumes/get/{{ resume.id }}">{{ resume.person_position }}</a></h4>
+                    <h5><span class="text-muted">Отрасль:</span> <mark>{{ resume.person_branch }}</mark></h5>
+                    <h5><span class="text-muted">Профессия:</span> {{ resume.person_profession }}</h5>
+                    <h5 class="text-primary">{{ resume.person_city }}, {{ resume.person_region }} обл.</h5>
+
+                    <h6>Дата публикации: <code>{{ resume.person_timestamp }}</code></h6>
+                    <hr>
+
+                {% endfor %}
+
+                <ul class="pagination">
+                    {% if resumes.has_previous %}
+                        <li class="arrow"><a href="/page/{{ resumes.previous_page_number }}">&laquo;</a> </li>
+                    {% else %}
+                        <li class="arrow unavailable"><a href="">&laquo;</a> </li>
+                    {% endif %}
+                    {% for page in resumes.paginator.page_range %}
+                        {% if page == resumes.number %}
+                            <li class="current"><a href="/page/{{ page }}">{{ page }}</a> </li>
+                        {% else %}
+                             <li><a href="/page/{{ page }}/">{{ page }}</a> </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if resumes.has_next %}
+                        <li class="arrow"><a href="/page/{{ resumes.next_page_number }}">&raquo;</a> </li>
+                    {% else %}
+                        <li class="arrow unavailable"><a href="">&raquo;</a> </li>
+                    {% endif %}
+                 </ul>
+
+            </div>
+        {% endblock %}

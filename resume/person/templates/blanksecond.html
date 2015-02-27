@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+        {% block resume %}
+                    <h2>Этап второй:</h2>
+                    <h6 style="text-align:center;color:#ff0000">(необязательный)</h6>
+            <div id="blankSecondPart">
+            <div class="col-md-3 col-md-offset-3">
+                    <h4>Введите Ваш ВУЗ и полученую специальность:</h4>
+                            <form action="/saveeducationblank/get/{{ username }}/" method="post">
+                           {% csrf_token %}
+                                {{ education_form }}
+                                <input type="submit" class="btn btn-success" value="Добавить">
+                            </form>
+                           {% for edu in education %}
+                           <p>
+                             <span>{{ edu.education_name }}</span>: <span>{{ edu.education_speciality }}</span>
+                          </p>
+                          {% endfor %}
+
+                 </div>
+                <div class="col-md-3">
+
+                    <h4>Введите Ваше предидущее место работы и должность:</h4>
+                            <form action="/savejobblank/get/{{ username }}/" method="post">
+                                {% csrf_token %}
+
+                                {{ job_form }}
+                                <input type="submit" class="btn btn-success" value="Добавить">
+                            </form>
+                           {% for j in job %}
+                          <p>
+                             <span>{{ j.previous_place }}</span>: <span>{{ j.previous_position }}</span>
+                          </p>
+                          {% endfor %}
+                 </div>
+
+            </div>
+
+
+
+        {% endblock %}

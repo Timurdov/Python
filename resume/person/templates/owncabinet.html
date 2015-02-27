@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+        {% block resume %}
+        <div class="col-sm-4">
+                  <h4>Введите Ваш ВУЗ и специальность, которую Вы получили:</h4>
+                            <form action="/cabineteducation/get/{{ username }}/" method="post">
+                                {% csrf_token %}
+                                {{ education_form }}
+                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Добавить">
+                            </form>
+
+                    {% if education %}
+                        {% for edu in education %}
+                         <form action="/changeeducation/get/{{ edu.id }}/" method="post" class="form-inline">
+                             {% csrf_token %}
+                            <div class="form-group">
+                             <input type="text" size="18" class="form-control" name="education_name" id="education_name"  value="{{ edu.education_name }}" required>
+                             <input type="text" size="16" class="form-control" name="education_speciality" id="education_speciality" value="{{ edu.education_speciality }}" required>
+                            <button type="submit" title="Исправить" class="btn btn-warning"><i class="fa fa-exchange fa-rotate-90"></i></button>
+                            </div>
+                             </form>
+                          {% endfor %}
+                     {% endif %}
+        </div>
+
+            <div class="col-sm-4">
+                <h4>Ваши данные:</h4>
+                {% if username %}
+                    <form id="cabinetPage" action="/savecabinet/get/{{ username }}/" method="post">
+                         {% csrf_token %}
+                         <!--{{ form.as_p }}-->
+
+
+                        <input type="text" name="person_username" id="person_username"  class="form-control" value="{{ username }}" required>
+
+                        <input type="text" name="person_last_name" id="person_last_name"  class="form-control" value="{{ person.person_last_name }}" required autofocus>
+
+                        <input type="text" name="person_name" id="person_name"  class="form-control" value="{{ person.person_name }}" required >
+
+                        <input type="text" name="person_father_name" id="person_father_name"  class="form-control" value="{{ person.person_father_name }}" required>
+
+                        <input type="date" name="person_birthday" id="person_birthday"  class="form-control" value="{{ person.person_birthday|date:'Y-m-d' }}" required>
+
+                        <input type="text" name="person_region" id="person_region"  class="form-control" value="{{ person.person_region }}" required >
+
+                        <input type="text" name="person_city" id="person_city"  class="form-control" value="{{ person.person_city }}" required>
+
+                        <input type="text" name="person_branch" id="person_branch"  class="form-control" value="{{ person.person_branch }}" required >
+
+                        <input type="text" name="person_profession" id="person_profession"  class="form-control" value="{{ person.person_profession }}" required >
+
+                        <input type="text" name="person_position" id="person_position"  class="form-control" value="{{ person.person_position }}" required >
+
+                        <input type="text" name="person_phone_number" id="person_phone_number"  class="form-control" value="{{ person.person_phone_number }}" required>
+
+                        <input type="email" name="person_email" id="person_email"  class="form-control" value="{{ person.person_email }}" required >
+
+                        <textarea rows="4" name="person_skills" id="person_skills"  class="form-control" required>{{ person.person_skills }}</textarea>
+
+                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Исправить личные данные">
+                    </form>
+
+
+
+
+                {% endif %}
+
+            </div>
+
+         <div class="col-sm-4">
+                          <h4>Введите Ваше предыдущее место работы и должность:</h4>
+                            <form action="/cabinetjob/get/{{ username }}/" method="post">
+                                {% csrf_token %}
+                                {{ job_form }}
+                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Добавить">
+                            </form>
+
+
+
+                        {% if job %}
+                        {% for j in job %}
+                         <form action="/changejob/get/{{ j.id }}/" method="post" class="form-inline">
+                             {% csrf_token %}
+                            <div class="form-group">
+                             <input type="text" size="18" class="form-control" name="previous_place" id="previous_place" value="{{ j.previous_place }}" required>
+                             <input type="text" size="16" class="form-control" name="previous_position" id="previous_position" value="{{ j.previous_position }}" required>
+                            <button type="submit" title="Исправить" class="btn btn-warning"><i class="fa fa-exchange fa-rotate-90"></i></button>
+                            </div>
+                             </form>
+                          {% endfor %}
+                        {% endif %}
+         </div>
+
+        {% endblock %}

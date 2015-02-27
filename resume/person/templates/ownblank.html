@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+        {% block resume %}
+
+            <div class="col-md-4 col-md-offset-4">
+                <div id="blankFirstPart">
+                    <h2>Этап первый</h2>
+                    <h3>Введите Ваши данные</h3>
+                        <form id="blankForm" action="/saveblank/get/{{ username }}/" method="post">
+                            {% csrf_token %}
+
+                            <input type="text" name="person_username" id="person_username"  class="form-control" value="{{ username }}" required>
+
+                            <input type="text" name="person_last_name" id="person_last_name"  class="form-control" placeholder="Фамилия" required autofocus>
+
+                            <input type="text" name="person_name" id="person_name"  class="form-control" placeholder="Имя" required >
+
+                            <input type="text" name="person_father_name" id="person_father_name"  class="form-control" placeholder="Отчество" required>
+
+                            <input type="date" name="person_birthday" id="person_birthday"  class="form-control" required>
+
+                            <!--<input type="" name="person_region" id="person_region"  class="form-control" placeholder="Область" required >-->
+                            <select class="form-control" name="person_region" id="person_region" required>
+                                 <option value='' disabled selected style='display:none;'>Выберите свою область</option>
+                                    {% for region in regions %}
+                                    <option>{{ region }}</option>
+                                    {% endfor %}
+                            </select>
+
+                            <input type="text" name="person_city" id="person_city"  class="form-control" placeholder="Населеный пункт" required>
+
+                            <!--<input type="" name="person_position" id="person_branch"  class="form-control" placeholder="Направление" required>-->
+                            <select class="form-control" name="person_branch" id="person_branch" required>
+                                <option value='' disabled selected style='display:none;'>Выберите направление</option>
+                                {% for branch in branches %}
+                                    <option>{{ branch }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <!--<input type="" name="person_position" id="person_profession"  class="form-control" placeholder="Специальность" required>-->
+                            <select class="form-control" name="person_profession" id="person_profession" required>
+                                <option value='' disabled selected style='display:none;'>Выберите свою специальность</option>
+                                    {% for profession in professions %}
+                                    <option>{{ profession }}</option>
+                                    {% endfor %}
+                            </select>
+
+                            <input type="text" name="person_position" id="person_position"  class="form-control" placeholder="Позиция" required>
+
+                            <input type="text" name="person_phone_number" id="person_phone_number"  class="form-control" placeholder="тел.:" required>
+
+                            <input type="email" name="person_email" id="person_email"  class="form-control" placeholder="email" required autofocus>
+
+                            <textarea  rows="6" name="person_skills" id="person_skills"  class="form-control" placeholder="Навыки" required></textarea>
+
+
+                            {% if login_error %}
+                             <label class="error">{{ login_error }}</label>
+                           {% endif %}
+                            <button type="submit" id="firstFormSubmit" class="btn btn-danger">Отправить форму</button>
+                        </form>
+                    </div>
+
+            </div>
+
+        {% endblock %}
